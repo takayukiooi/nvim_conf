@@ -17,7 +17,7 @@ require("lazy").setup {
     { import = "plugins.snacks" },
     { import = "ui" },
     { import = "lsp" },
+    require "keymaps",
   },
   require "options",
-  require "keymaps",
 }

@@ -56,11 +56,23 @@ return {
         miniclue.gen_clues.registers(),
         miniclue.gen_clues.windows(),
         miniclue.gen_clues.z(),
+
+        -- Search with Snacks.picker
+        { mode = "n", keys = "<Leader>s", desc = "Search" },
+
+        -- Git
+        { mode = "n", keys = "<Leader>g", desc = "Git" },
       }
     end,
   },
   { "nvim-mini/mini.hipatterns", version = false, opts = {} },
-  { "nvim-mini/mini.sessions", version = false, opts = {} },
+  { 
+    "nvim-mini/mini.sessions", 
+    version = false, 
+    opts = {
+      autowrite = true,
+    },
+  },
 
   -- git
   -- { "nvim-mini/mini-git", version = false, opts = {} },
