@@ -21,3 +21,4 @@ require("lazy").setup {
   },
   require "options",
 }
+require "lsp.luals"
