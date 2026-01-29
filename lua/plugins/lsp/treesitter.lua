@@ -14,20 +14,8 @@ return {
     "TSLog",
   },
   build = ":TSUpdate",
-  opts_extend = { "ensure_installed" },
-  opts = {
-    ensure_installed = {
-      "go",
-      "lua",
-      "javascript",
-      "scss",
-      "typescript",
-      "vim",
-      "vue",
-    },
-  },
-  config = function(_, opts)
-    local TS = require "nvim-treesitter"
+  opts = {},
+  init = function()
     local ensure_installed = {
       "go",
       "lua",
@@ -37,16 +25,9 @@ return {
       "vim",
       "vue",
     }
-    local installed = {}
-    for _, lang in ipairs(TS.get_installed "parsers") do
-      installed[lang] = true
-    end
-    local to_install = vim.tbl_filter(function(what)
-      local lang = vim.treesitter.language.get_lang(what)
-      if lang == nil or installed[lang] == nil then return true end
-      return false
-    end, ensure_installed)
-    if #to_install > 0 then TS.install(to_install) end
+    local isnt_installed = function(lang) return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0 end
+    local to_install = vim.tbl_filter(isnt_installed, ensure_installed)
+    if #to_install > 0 then require("nvim-treesitter").install(to_install) end
 
     -- Enable tree-sitter after opening a file for a target language
     local filetypes = {}
@@ -58,7 +39,7 @@ return {
     local ts_start = function(ev) vim.treesitter.start(ev.buf) end
     vim.api.nvim_create_autocmd({ "FileType" }, {
       pattern = filetypes,
-      callback = ts_start,
+      callback = function(event) vim.treesitter.start() end,
       group = vim.api.nvim_create_augroup("treesitter", {}),
     })
   end,
