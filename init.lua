@@ -13,14 +13,12 @@ rtp:prepend(lazypath)
 require("lazy").setup {
   spec = {
     { import = "plugins" },
-    { import = "plugins.mini" },
-    { import = "plugins.snacks" },
-    { import = "ui" },
-    { import = "lsp" },
-    require "keymaps",
+    { import = "plugins.lsp" },
+    { import = "plugins.ui" },
   },
   require "options",
+  require "keymaps",
+  -- vimの設定をするためのLuaLS設定。Lazyの中で設定すると上手く有効化できないので、こっちでやる
+  require "luals"
 }
 
--- vimの設定をするためのLuaLS設定。Lazyの中で設定すると上手く有効化できないので、こっちでやる
-require "lsp.luals"
