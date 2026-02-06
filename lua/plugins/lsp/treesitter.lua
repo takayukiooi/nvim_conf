@@ -31,7 +31,7 @@ return {
         "vue",
       },
     },
-    ---@param opts OTSConfig
+    ---@param opts OTSConfig: TSConfig
     config = function(_, opts)
       local TS = require "nvim-treesitter"
       local installed = {}
@@ -65,14 +65,49 @@ return {
         callback = ts_start,
         group = vim.api.nvim_create_augroup("treesitter", {}),
       })
+      TS.setup {}
     end,
   },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    branch = "main",
-    commit = "a0e182ae21fda68c59d1f36c9ed45600aef50311",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    init = function() vim.g.no_plugin_maps = true end,
-    opts = {},
-  },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter-textobjects",
+  --   branch = "main",
+  --   commit = "a0e182ae21fda68c59d1f36c9ed45600aef50311",
+  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
+  --   init = function() vim.g.no_plugin_maps = true end,
+  --   opts = {
+  --     select = {
+  --       enable = true,
+  --       lookahead = true,
+  --       include_surrounding_whitespace = false,
+  --       keymaps = {
+  --         ["ak"] = { query = "@block.outer", desc = "around block" },
+  --         ["ik"] = { query = "@block.inner", desc = "inside block" },
+  --         ["ac"] = { query = "@class.outer", desc = "around class" },
+  --         ["ic"] = { query = "@class.inner", desc = "inside class" },
+  --         ["a?"] = { query = "@conditional.outer", desc = "around conditional" },
+  --         ["i?"] = { query = "@conditional.inner", desc = "inside conditional" },
+  --         ["af"] = { query = "@function.outer", desc = "around function " },
+  --         ["if"] = { query = "@function.inner", desc = "inside function " },
+  --         ["ao"] = { query = "@loop.outer", desc = "around loop" },
+  --         ["io"] = { query = "@loop.inner", desc = "inside loop" },
+  --         ["aa"] = { query = "@parameter.outer", desc = "around argument" },
+  --         ["ia"] = { query = "@parameter.inner", desc = "inside argument" },
+  --       },
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     local select_map = function(key, query, desc)
+  --       vim.keymap.set(
+  --         { "v", "x", "o" },
+  --         key,
+  --         function() require("nvim-treesitter-textobjects.select").select_textobject(query, "textobjects") end,
+  --         { desc = desc }
+  --       )
+  --     end
+  --     for key, tbl in ipairs(opts.select.keymaps) do
+  --       select_map(key, tbl.query, tbl.desc)
+  --     end
+  --     require("nvim-treesitter-textobjects").setup(opts)
+  --   end,
+  -- },
 }

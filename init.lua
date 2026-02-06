@@ -19,6 +19,5 @@ require("lazy").setup {
   require "options",
   require "keymaps",
   -- vimの設定をするためのLuaLS設定。Lazyの中で設定すると上手く有効化できないので、こっちでやる
-  require "luals"
+  require "luals",
 }
-
