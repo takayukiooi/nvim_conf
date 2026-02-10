@@ -88,6 +88,7 @@ return {
       gopls = {},
       lua_ls = {},
       ["copilot-language-server"] = {},
+      ["terraform-ls"] = {},
     }
 
     local ensure_installed = vim.tbl_keys(servers or {})

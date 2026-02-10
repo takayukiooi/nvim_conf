@@ -7,6 +7,17 @@ return {
       "BufNewFile",
       "BufWritePost",
     },
-    opts = function(_, opts) opts.auto_cmd = true end,
+    opts = {
+      auto_cmd = true,
+      on_tab_options = { -- A table of vim options when tabs are detected
+        ["expandtab"] = false,
+      },
+      on_space_options = { -- A table of vim options when spaces are detected
+        ["expandtab"] = true,
+        ["tabstop"] = "detected", -- If the option value is 'detected', The value is set to the automatically detected indent size.
+        ["softtabstop"] = "detected",
+        ["shiftwidth"] = "detected",
+      },
+    },
   },
 }
