@@ -117,5 +117,5 @@ nmap_leader(
   "Sidekick Toggle Claude"
 )
 
-nmap_leader("st", function() require("terraform").terraform_state() end, "Terraform State")
-nmap_leader("sp", function() require("picker").picker() end, "sample")
+-- nmap_leader("st", function() require("terraform").terraform_state() end, "Terraform State")
+-- nmap_leader("sp", function() require("picker").picker() end, "sample")
