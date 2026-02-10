@@ -87,6 +87,7 @@ return {
       ts_ls = {},
       gopls = {},
       lua_ls = {},
+      ["copilot-language-server"] = {},
     }
 
     local ensure_installed = vim.tbl_keys(servers or {})

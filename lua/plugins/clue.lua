@@ -53,6 +53,9 @@ return {
         miniclue.gen_clues.windows(),
         miniclue.gen_clues.z(),
 
+        -- AI CLI
+        { mode = "n", keys = "<Leader>a", desc = "AI" },
+
         -- Buffer
         { mode = "n", keys = "<Leader>b", desc = "Buffer" },
 

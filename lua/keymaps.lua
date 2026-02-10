@@ -43,9 +43,6 @@ nmap_leader("q", vim.diagnostic.setloclist, "Open diagnostic Quickfix list")
 -- Git
 nmap_leader("gB", function() Snacks.gitbrowse() end, "Git Browse")
 nmap_leader("gg", function() Snacks.lazygit() end, "Lazygit")
--- Grep
-nmap_leader("sB", function() Snacks.picker.grep_buffers() end, "Grep Open Buffers")
-nmap_leader("sw", function() Snacks.picker.grep_word() end, "Visual selection or word")
 -- LSP
 nmap_leader("ln", vim.lsp.buf.rename, "Rename")
 nmap_leader("la", vim.lsp.buf.code_action, "Code Action")
@@ -66,10 +63,14 @@ nmap_leader("sc", function() Snacks.picker.command_history() end, "Command Histo
 nmap_leader("sC", function() Snacks.picker.commands() end, "Commands")
 nmap_leader("sd", function() Snacks.picker.diagnostics() end, "Diagnostics")
 nmap_leader("sD", function() Snacks.picker.diagnostics_buffer() end, "Buffer Diagnostics")
+nmap_leader("sf", function() Snacks.picker.files() end, "Files")
+nmap_leader("sg", function() Snacks.picker.grep() end, "Grep")
+nmap_leader("sG", function() Snacks.picker.grep_buffers() end, "Grep Open Buffers")
 nmap_leader("sk", function() Snacks.picker.keymaps() end, "Keymaps")
 nmap_leader("sm", function() Snacks.picker.marks() end, "Marks")
 nmap_leader("sq", function() Snacks.picker.qflist() end, "Quickfix List")
 nmap_leader("su", function() Snacks.picker.undo() end, "Undo History")
+nmap_leader("sw", function() Snacks.picker.grep_word() end, "Visual selection or word")
 -- Other
 nmap_leader("c", function() Snacks.bufdelete() end, "Delete Buffer")
 nmap_leader("lR", function() Snacks.rename.rename_file() end, "Rename File")
@@ -77,3 +78,44 @@ nmap_leader("un", function() Snacks.notifier.hide() end, "Dismiss All Notificati
 
 vim.keymap.set({ "n", "t" }, "]]", function() Snacks.words.jump(vim.v.count1) end, { desc = "Next Reference" })
 vim.keymap.set({ "n", "t" }, "[[", function() Snacks.words.jump(-vim.v.count1) end, { desc = "Prev Reference" })
+
+-- Sidekick
+vim.keymap.set("n", "<tab>", function()
+  if not require("sidekick").nes_jump_or_apply() then return "<Tab>" end
+end, { expr = true, desc = "Goto/Apply Next Edit Suggestion" })
+vim.keymap.set(
+  { "n", "t", "i", "x" },
+  "<c-.>",
+  function() require("sidekick.cli").toggle() end,
+  { desc = "Sidekick Toggle" }
+)
+nmap_leader("aa", function() require("sidekick.cli").toggle() end, "Sidekick Toggle CLI")
+nmap_leader("as", function() require("sidekick.cli").select() end, "Select CLI")
+nmap_leader("ad", function() require("sidekick.cli").close() end, "Detach a CLI Session")
+vim.keymap.set(
+  { "x", "n" },
+  "<leader>at",
+  function() require("sidekick.cli").send { msg = "{this}" } end,
+  { desc = "Send This" }
+)
+nmap_leader("af", function() require("sidekick.cli").send { msg = "{file}" } end, "Send File")
+vim.keymap.set(
+  "x",
+  "<leader>av",
+  function() require("sidekick.cli").send { msg = "{selection}" } end,
+  { desc = "Send Visual Selection" }
+)
+vim.keymap.set(
+  { "n", "x" },
+  "<leader>ap",
+  function() require("sidekick.cli").prompt() end,
+  { desc = "Sidekick Select Prompt" }
+)
+nmap_leader(
+  "ac",
+  function() require("sidekick.cli").toggle { name = "copilot", focus = true } end,
+  "Sidekick Toggle Claude"
+)
+
+nmap_leader("st", function() require("terraform").terraform_state() end, "Terraform State")
+nmap_leader("sp", function() require("picker").picker() end, "sample")
