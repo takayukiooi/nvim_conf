@@ -70,6 +70,7 @@ nmap_leader("sk", function() Snacks.picker.keymaps() end, "Keymaps")
 nmap_leader("sm", function() Snacks.picker.marks() end, "Marks")
 nmap_leader("sq", function() Snacks.picker.qflist() end, "Quickfix List")
 nmap_leader("su", function() Snacks.picker.undo() end, "Undo History")
+nmap_leader("st", function() require("terraform").terraform_state() end, "Terraform State")
 nmap_leader("sw", function() Snacks.picker.grep_word() end, "Visual selection or word")
 -- Other
 nmap_leader("c", function() Snacks.bufdelete() end, "Delete Buffer")
@@ -116,5 +117,3 @@ nmap_leader(
   function() require("sidekick.cli").toggle { name = "copilot", focus = true } end,
   "Sidekick Toggle Claude"
 )
-
-nmap_leader("st", function() require("terraform").terraform_state() end, "Terraform State")
