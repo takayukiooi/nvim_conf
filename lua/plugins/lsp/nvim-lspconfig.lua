@@ -1,4 +1,5 @@
 return {
+  ---@type LazySpec
   -- Main LSP Configuration
   "neovim/nvim-lspconfig",
   lazy = false,
@@ -8,7 +9,17 @@ return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     { "j-hui/fidget.nvim", opts = {} },
   },
-  config = function()
+  opts_extend = { "ensure_installed" },
+  opts = {
+    ensure_installed = {
+      ts_ls = {},
+      gopls = {},
+      lua_ls = {},
+      ["copilot-language-server"] = {},
+      ["terraform-ls"] = {},
+    },
+  },
+  config = function(_, opts)
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
       callback = function(event)
@@ -83,13 +94,7 @@ return {
 
     local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-    local servers = {
-      ts_ls = {},
-      gopls = {},
-      lua_ls = {},
-      ["copilot-language-server"] = {},
-      ["terraform-ls"] = {},
-    }
+    local servers = opts.ensure_installed
 
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {

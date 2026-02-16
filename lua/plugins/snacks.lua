@@ -16,7 +16,17 @@ return {
         enabled = true,
         timeout = 3000,
       },
-      picker = { enabled = true },
+      picker = {
+        enabled = true,
+        win = {
+          input = {
+            keys = {
+              ["<c-p>"] = { "history_back", mode = { "i", "n" } },
+              ["<c-n>"] = { "history_forward", mode = { "i", "n" } },
+            },
+          },
+        },
+      },
       quickfile = { enabled = true },
       rename = { enabled = true },
       scope = { enabled = true },
