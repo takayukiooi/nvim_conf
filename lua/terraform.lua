@@ -59,7 +59,7 @@ function M.terraform_state()
     })
   end
 
-  local cwd = vim.fn.getcwd()
+  local cwd = vim.fn.expand "%:h"
   ---@type snacks.picker.Config
   picker.pick {
     source = "terraform",
