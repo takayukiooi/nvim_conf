@@ -17,8 +17,16 @@ end
 local function find_resource(text, cwd)
   local address = vim.fn.split(text, "\\.")
 
-  local resource = address[#address - 1]
-  local name = string.gsub(address[#address], "%[.*%]", "")
+  local resource
+  local name
+  if address[1] == "module" then
+    resource = address[1]
+    name = address[2]
+  else
+    resource = address[#address - 1]
+    name = string.gsub(address[#address], "%[.*%]", "")
+  end
+
   local pattern = string.format('%s" "%s', resource, name)
   local matches = run_cmd {
     "rg",
@@ -52,9 +60,9 @@ function M.terraform_state()
   local state = run_cmd({ "terraform", "state", "list" }, cwd)
 
   if #state.err ~= 0 then
-    for _, error in ipairs(state.err) do
-      Snacks.notify.error(error)
-    end
+    Snacks.notify.error "Failed terraform state list"
+    local init = run_cmd({ "terraform", "init" }, cwd)
+    if #init.err ~= 0 then Snacks.notify.error "Failed terraform init" end
     return
   end
 
