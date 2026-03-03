@@ -27,7 +27,7 @@ local function find_resource(text, cwd)
     name = string.gsub(address[#address], "%[.*%]", "")
   end
 
-  local pattern = string.format('%s" "%s', resource, name)
+  local pattern = string.format('%s"? "%s', resource, name)
   local matches = run_cmd {
     "rg",
     pattern,
