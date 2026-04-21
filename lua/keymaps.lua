@@ -42,6 +42,11 @@ nmap_leader("br", function() Snacks.picker.recent() end, "Recent")
 nmap_leader("q", vim.diagnostic.setloclist, "Open diagnostic Quickfix list")
 -- Git
 nmap_leader("gB", function() Snacks.gitbrowse() end, "Git Browse")
+nmap_leader(
+  "gy",
+  function() require("gitlinker").link { action = require("gitlinker.actions").clipboard } end,
+  "Copy Github URL"
+)
 nmap_leader("gg", function() Snacks.lazygit() end, "Lazygit")
 -- LSP
 nmap_leader("ln", vim.lsp.buf.rename, "Rename")
