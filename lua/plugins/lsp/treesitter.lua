@@ -30,6 +30,7 @@ return {
         "vim",
         "vue",
         "terraform",
+        "ruby",
       },
     },
     ---@param opts OTSConfig: TSConfig

@@ -19,6 +19,18 @@ return {
       ["yaml-language-server"] = {},
       ["copilot-language-server"] = {},
       ["terraform-ls"] = {},
+      solargraph = {},
+      rubocop = {},
+      -- sorbet = {},
+      -- ruby_lsp = {
+      --   init_options = {
+      --     addonSettings = {
+      --       ["Ruby LSP Rails"] = {
+      --         enablePendingMigrationsPrompt = false,
+      --       },
+      --     },
+      --   },
+      -- },
     },
   },
   config = function(_, opts)
